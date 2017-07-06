@@ -34,6 +34,9 @@ a.active {
 .table-head {
 	margin-bottom: 0;
 }
+.table-head, .table-foot {
+	border-right: 2em solid transparent;
+}
 
 .table-head > thead > tr > th {
 	border-bottom-width: 1px;
@@ -41,4 +44,17 @@ a.active {
 
 .form .table>tbody>tr:first-child>td {
 	border-top: 0;
+}
+
+.table td, .table th {
+	width: 14%;
+}
+
+.table td.img,
+.table th.img,
+.table td.sku,
+.table th.sku,
+.table td.price,
+.table th.price {
+	width: 7%;
 }

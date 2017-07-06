@@ -22,7 +22,7 @@
 			<table class="table table-head">
 				<thead>
 					<tr>
-					<th v-for="column in columns">
+					<th v-for="column in columns" :class="column.name">
 						<a href="#" @click.self.prevent="sortBy(column.name)" :class="sortKey == column ? 'active' : null">
 							{{ column.title }}
 						</a>
@@ -37,6 +37,7 @@
 						is="product-row"
 						v-for="(product, index) in orderedProducts"
 						:index="index"
+						:img="product.img"
 						:sku="product.sku"
 						:name="product.name"
 						:price="product.price"
@@ -54,7 +55,7 @@
 			<table class="table table-foot">
 				<tfoot>
 					<tr>
-					<th v-for="column in columns">
+					<th v-for="column in columns" :class="column.name">
 						<a href="#" @click.self.prevent="sortBy(column.name)" :class="sortKey == column ? 'active' : null">
 							{{ column.title }}
 						</a>

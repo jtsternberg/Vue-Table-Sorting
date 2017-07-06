@@ -7,6 +7,7 @@ window.appProducts = [
 		"type": "YARNS",
 		"qty": '',
 		"stock": 22,
+		"img": 'https://loremflickr.com/50/50',
 	},
 	{
 		"sku": "SH02",
@@ -15,6 +16,7 @@ window.appProducts = [
 		"price": 60.20,
 		"type": "YARNS",
 		"qty": '',
+		"img": 'https://loremflickr.com/50/50',
 	},
 	{
 		"sku": "SH03",
@@ -23,6 +25,7 @@ window.appProducts = [
 		"price": 60.20,
 		"type": "YARNS",
 		"qty": '',
+		"img": 'https://loremflickr.com/50/50',
 	},
 	{
 		"sku": "SH04",

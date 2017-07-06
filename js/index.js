@@ -1,14 +1,15 @@
 Vue.component('product-row', {
 	template: '<tr class="product-row">' +
-	'<td>{{ sku }}</td>' +
-	'<td>{{ name }}</td>' +
-	'<td>${{ formattedPrice }}</td>' +
-	'<td><input size="3" @input.self.prevent="trigger" :id="sku" :name="qtyName" :disabled="isDisabled" :value="qty" type="number" step="1" min="0" pattern="[0-9]"/> of {{ minStock }}</td>' +
-	'<td><a @click="$emit(\'do-search\', category)" href="#">{{ category }}</a></td>' +
-	'<td><a @click="$emit(\'do-search\', type)" href="#">{{ type }}</a></td>' +
+	'<td class="img"><img :src="img" :alt="name"/></td>' +
+	'<td class="sku">{{ sku }}</td>' +
+	'<td class="name">{{ name }}</td>' +
+	'<td class="price">${{ formattedPrice }}</td>' +
+	'<td class="qty"><input size="3" @input.self.prevent="trigger" :id="sku" :name="qtyName" :disabled="isDisabled" :value="qty" type="number" step="1" min="0" pattern="[0-9]"/> of {{ minStock }}</td>' +
+	'<td class="category"><a @click="$emit(\'do-search\', category)" href="#">{{ category }}</a></td>' +
+	'<td class="type"><a @click="$emit(\'do-search\', type)" href="#">{{ type }}</a></td>' +
 	'</tr>',
 
-	props: [ 'sku', 'name', 'price', 'category', 'type', 'qty', 'stock' ],
+	props: [ 'img', 'sku', 'name', 'price', 'category', 'type', 'qty', 'stock' ],
 
 	computed: {
 		qtyName: function() {
@@ -38,8 +39,9 @@ Vue.component('product-row', {
 var app = new Vue({
 	el: '#demo',
 
-	mounted: function() {
+	created: function() {
 		this.products.map( function( product ) {
+			product.img = product.img ? product.img : 'https://via.placeholder.com/50x50';
 			product.stock = product.stock ? parseInt( product.stock, 10 ) : 0;
 			product.price = product.price ? parseFloat( product.price ) : 0;
 		} );
@@ -50,6 +52,11 @@ var app = new Vue({
 		reverse: false,
 		search: '',
 		columns: [
+			{
+				name: 'img',
+				title: 'Image',
+				filter: false,
+			},
 			{
 				name: 'sku',
 				title: 'SKU'

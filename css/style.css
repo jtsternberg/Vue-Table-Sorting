@@ -1,0 +1,23 @@
+body {
+  padding: 2em 0;
+}
+
+a {
+  font-weight: normal;
+  color: blue;
+}
+
+a.active {
+  font-weight: bold;
+  font-style: italic;
+}
+
+#search-products-button {
+	cursor: pointer;
+}
+
+#search-products:not(:valid) ~ #search-products-button {
+	color: rgba(0,0,0,.1);
+	background: #f6f6f6;
+	border-color: #ddd;
+}

@@ -6,6 +6,7 @@ window.appProducts = [
 		"price": 60.20,
 		"type": "YARNS",
 		"qty": '',
+		"stock": 22,
 	},
 	{
 		"sku": "SH02",

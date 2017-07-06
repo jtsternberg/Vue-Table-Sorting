@@ -1,14 +1,14 @@
 Vue.component('product-row', {
-	template: '<tr>' +
+	template: '<tr class="product-row">' +
 	'<td>{{ sku }}</td>' +
 	'<td>{{ name }}</td>' +
 	'<td>${{ formattedPrice }}</td>' +
-	'<td><input size="3" @input="$emit(\'update-qty\', sku, $event.target.value)" :id="sku" :name="qtyName" :value="qty" type="number" step="1" min="0" pattern="[0-9]"/></td>' +
+	'<td><input size="3" @input.self.prevent="trigger" :id="sku" :name="qtyName" :disabled="isDisabled" :value="qty" type="number" step="1" min="0" pattern="[0-9]"/> of {{ minStock }}</td>' +
 	'<td><a @click="$emit(\'do-search\', category)" href="#">{{ category }}</a></td>' +
 	'<td><a @click="$emit(\'do-search\', type)" href="#">{{ type }}</a></td>' +
 	'</tr>',
 
-	props: [ 'sku', 'name', 'price', 'category', 'type', 'qty'],
+	props: [ 'sku', 'name', 'price', 'category', 'type', 'qty', 'stock' ],
 
 	computed: {
 		qtyName: function() {
@@ -18,12 +18,32 @@ Vue.component('product-row', {
 		formattedPrice: function() {
 			return parseFloat( this.price ).toFixed(2);
 		},
+
+		minStock: function() {
+			return this.stock ? parseInt( this.stock, 10 ) : 0;
+		},
+
+		isDisabled: function() {
+			return ! this.stock && ! this.qty;
+		}
 	},
 
+	methods: {
+		trigger: function( evt ) {
+			this.$emit( 'update-qty', this.sku, evt.target.value );
+		}
+	}
 } );
 
 var app = new Vue({
 	el: '#demo',
+
+	mounted: function() {
+		this.products.map( function( product ) {
+			product.stock = product.stock ? parseInt( product.stock, 10 ) : 0;
+			product.price = product.price ? parseFloat( product.price ) : 0;
+		} );
+	},
 
 	data: {
 		sortKey: 'type',
@@ -135,6 +155,11 @@ var app = new Vue({
 				var product = this.products.find( function( product ) {
 					return sku === product.sku;
 				} );
+
+				if ( qty > product.stock ) {
+					qty = product.stock;
+				}
+
 				product.qty = qty;
 			}
 		},
@@ -152,7 +177,6 @@ var app = new Vue({
 				return;
 			}
 
-
 			var names = products.map( function( product ) {
 				return product.qty + ' of ' + product.name;
 			} );
@@ -165,7 +189,9 @@ var app = new Vue({
 
 		clearQuantities: function() {
 			for (var i = 0; i < this.products.length; i++) {
-				this.products[i].qty = '';
+				if ( this.products[i].qty ) {
+					this.products[i].qty = '';
+				}
 			}
 
 			document.getElementById( 'quantities-form' ).reset();

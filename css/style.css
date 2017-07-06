@@ -22,6 +22,10 @@ a.active {
 	border-color: #ddd;
 }
 
+.product-row input {
+	width: 3em;
+}
+
 .form {
 	overflow-y: scroll;
 	max-height: 600px;

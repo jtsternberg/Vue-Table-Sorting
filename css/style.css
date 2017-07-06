@@ -21,3 +21,20 @@ a.active {
 	background: #f6f6f6;
 	border-color: #ddd;
 }
+
+.form {
+	overflow-y: scroll;
+	max-height: 600px;
+}
+
+.table-head {
+	margin-bottom: 0;
+}
+
+.table-head > thead > tr > th {
+	border-bottom-width: 1px;
+}
+
+.form .table>tbody>tr:first-child>td {
+	border-top: 0;
+}
